@@ -1,0 +1,23 @@
+Resources:
+  ApiGatewayMethodS3DashobjectGetApplicationJsonModel:
+    Type: AWS::ApiGateway::Model
+    Properties:
+      RestApiId: !Ref ApiGatewayRestApi
+#      RestApiId:
+#        Fn::GetAtt: # !Ref 대신 Fn::GetAtt 사용
+#          - ApiGatewayRestApi
+#          - Id
+      ContentType: application/json
+      Name: ApiGatewayMethodS3DashobjectGetApplicationJsonModel
+      Schema: # S3에서 읽어오는 JSON 파일의 예상 스키마를 여기에 정의
+        type: object
+        properties:
+          # 예시 스키마 (실제 JSON 파일 내용에 맞게 수정해야 함)
+          message:
+            type: string
+          version:
+            type: string
+          data:
+            type: object
+            additionalProperties: true # 어떤 속성이든 올 수 있도록
+        required: []

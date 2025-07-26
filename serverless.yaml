@@ -1,0 +1,46 @@
+# serverless.yml (수정된 경로)
+
+service: my-serverless-api
+frameworkVersion: '3'
+
+plugins:
+  - serverless-esbuild
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: ap-northeast-2
+  apiGateway:
+    minimumCompressionSize: 1024
+    shouldStartNameWithService: true
+  environment:
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1'
+    NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000'
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - s3:GetObject
+          Resource: "arn:aws:s3:::i18n-automation/nana1243/react-typescript/v1.0.1/generated_*.json"
+
+# functions 파일 경로 수정
+functions: ${file(./configs/functions.yaml)} # <--- src/ 제거!
+
+package:
+  individually: true
+
+custom:
+  esbuild:
+    bundle: true
+    minify: false
+    sourcemap: true
+    exclude: ['aws-sdk']
+    target: 'node14'
+    define: { 'require.resolve': 'undefined' }
+    platform: node
+    concurrency: 10
+
+# resources 파일 경로 수정
+resources: ${file(./configs/resources.yaml)} # <--- src/ 제거!
