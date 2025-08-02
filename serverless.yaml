@@ -42,5 +42,5 @@ custom:
     platform: node
     concurrency: 10
 
-# resources 파일 경로 수정
-resources: ${file(./configs/resources.yaml)} # <--- src/ 제거!
+
+#resources: ${file(./configs/resources.yaml)}
