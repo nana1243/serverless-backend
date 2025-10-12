@@ -6,14 +6,8 @@ export default {
     {
       http: {
         method: 'get',
-        path: 's3-object',
-        request: {
-          parameters: {
-            querystrings: {
-              key: true,
-            },
-          },
-        },
+        path: 'user',
+        request: {},
       },
     },
   ],
