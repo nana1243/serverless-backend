@@ -17,9 +17,7 @@ const streamToString = (stream: Readable): Promise<string> =>
     stream.on('end', () => resolve(Buffer.concat(chunks).toString('utf-8')));
   });
 
-export const getS3Object = async (
-  event: APIGatewayProxyEvent
-): Promise<APIGatewayProxyResult> => {
+export const getS3Object = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const key = event.queryStringParameters?.key;
 
   if (!key) {
@@ -34,7 +32,7 @@ export const getS3Object = async (
 
   const params = {
     Bucket: BUCKET_NAME,
-    Key: `${BUCKET_PREFIX}/${key}`
+    Key: `${BUCKET_PREFIX}/${key}`,
   };
 
   try {
