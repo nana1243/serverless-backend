@@ -7,11 +7,11 @@ import { middyfy } from '@libs/lambda';
  * - 그렇지 않으면 카카오 인가 화면으로 리다이렉트
 **/
 
-const user: ValidatedEventAPIGatewayProxyEvent<any> = async (event) => {
+const auth: ValidatedEventAPIGatewayProxyEvent<any> = async (event) => {
   return formatJSONResponse({
     message: `Hello  welcome to the exciting Serverless world!`,
     event,
   });
 };
 
-export const main = middyfy(user);
+export const main = middyfy(auth);

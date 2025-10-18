@@ -1,11 +1,8 @@
-auth: # 함수 이름 (여기서는 getS3Object)
-  handler: src/functions/auth/handler.main # 실제 핸들러 경로
+authKakao:
+  handler: src/functions/auth/handler.main # 필요하다면 카카오 로그인 전용 핸들러(예: handler.kakao)로 변경하세요.
   events:
     - http:
-        path: auth # API Gateway 경로
+        path: auth/kakao
         method: get
-        request:
-#          parameters:
-#            querystrings:
-#              fileName: true # 쿼리 파라미터 허용
+
 
