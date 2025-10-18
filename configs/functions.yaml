@@ -1,4 +1,3 @@
-# hello 함수 정의
 hello:
   handler: src/functions/hello/handler.main # 실제 핸들러 경로
   events:
@@ -6,12 +5,12 @@ hello:
         path: hello # API Gateway 경로
         method: get
 
-# getS3Object 함수 정의
+# user
 getS3Object: # 함수 이름 (여기서는 getS3Object)
-  handler: src/functions/staged/getS3Object/handler.main # 실제 핸들러 경로
+  handler: src/functions/user/handler.main # 실제 핸들러 경로
   events:
     - http:
-        path: s3-data # API Gateway 경로
+        path: user # API Gateway 경로
         method: get
         request:
           parameters:
