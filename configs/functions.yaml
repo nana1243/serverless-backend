@@ -1,19 +1,11 @@
-hello:
-  handler: src/functions/hello/handler.main # 실제 핸들러 경로
+auth: # 함수 이름 (여기서는 getS3Object)
+  handler: src/functions/auth/handler.main # 실제 핸들러 경로
   events:
     - http:
-        path: hello # API Gateway 경로
-        method: get
-
-# user
-getS3Object: # 함수 이름 (여기서는 getS3Object)
-  handler: src/functions/user/handler.main # 실제 핸들러 경로
-  events:
-    - http:
-        path: user # API Gateway 경로
+        path: auth # API Gateway 경로
         method: get
         request:
-          parameters:
-            querystrings:
-              fileName: true # 쿼리 파라미터 허용
+#          parameters:
+#            querystrings:
+#              fileName: true # 쿼리 파라미터 허용
 

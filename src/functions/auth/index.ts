@@ -6,7 +6,7 @@ export default {
     {
       http: {
         method: 'get',
-        path: 'user',
+        path: 'kakao',
         request: {},
       },
     },

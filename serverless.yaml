@@ -39,7 +39,6 @@ custom:
     define: { 'require.resolve': 'undefined' }
     platform: node
     concurrency: 10
-    lint: false
 
 
 #resources: ${file(./configs/resources.yaml)}
