@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Serverless aws-nodejs-typescript template",
   "main": "",
-  "type": "module",
+  
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "serverless offline --config serverless.yaml",
@@ -32,7 +32,7 @@
     "json-schema-to-ts": "^1.5.0",
     "prettier": "^3.6.2",
     "serverless": "^3.0.0",
-    "serverless-esbuild": "^1.23.3",
+    "serverless-esbuild": "^1.52.1",
     "serverless-offline": "^13.9.0",
     "ts-node": "^10.4.0",
     "tsconfig-paths": "^3.9.0",
