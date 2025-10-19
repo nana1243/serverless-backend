@@ -14,7 +14,6 @@ provider:
   apiGateway:
     minimumCompressionSize: 1024
     shouldStartNameWithService: true
-  environment: ${file(./env.${sls:stage}.json)}
   iam:
     role:
       statements:
