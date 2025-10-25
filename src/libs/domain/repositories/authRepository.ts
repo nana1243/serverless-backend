@@ -1,7 +1,7 @@
 import { DynamoDBClient, GetItemCommand, PutItemCommand, DeleteItemCommand } from '@aws-sdk/client-dynamodb';
 import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
 
-import { UserEntity } from './models';
+import { UserEntity } from '@libs/domain/models/authModel';
 
 const ddbClient = new DynamoDBClient({});
 const USER_TABLE = process.env.USER_TABLE_NAME; // 환경 변수 사용
