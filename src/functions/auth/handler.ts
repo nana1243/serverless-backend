@@ -1,19 +1,26 @@
-import { formatJSONResponse, ValidatedEventAPIGatewayProxyEvent } from '@libs/framework/api-gateway';
+import { ValidatedEventAPIGatewayProxyEvent } from '@libs/framework/api-gateway';
 import { middyfy } from '@libs/framework/lambda';
+import getToken from '@libs/domain/utils/getToken';
+import { generateTokenService } from './service'
 
-/**
- * 카카오 OAuth 시작
- * - 유효한 리프레시 토큰이 있으면 JWT 재발급 후 리다이렉트
- * - 그렇지 않으면 카카오 인가 화면으로 리다이렉트
-**/
+const { KAKAO_CLIENT_ID, REDIRECT_URI } = process.env;
 
 // oauth/token
-const auth: ValidatedEventAPIGatewayProxyEvent<any> = async (event) => {
+const kakaoLoginStartHandler: ValidatedEventAPIGatewayProxyEvent<any> = async (event) => {
 
-  return formatJSONResponse({
-    message: `Hello  welcome to the exciting Serverless world!`,
-    event,
-  });
+  const refreshToken = getToken(event.headers['Cookie'] || event.headers['cookie'] || '');
+  if(refreshToken){
+    const newAccessToken =  generateTokenService();
+
+  }
+  const kakaoRedirectUri = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${KAKAO_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=profile_nickname,profile_image`;
+  return {
+    statusCode : 302,
+    headers: {
+      Location: kakaoRedirectUri,
+    },
+    body: ''
+  }
 };
 
-export const main = middyfy(auth)
+export const main = middyfy(kakaoLoginStartHandler)
