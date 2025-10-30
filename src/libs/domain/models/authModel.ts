@@ -8,6 +8,7 @@ export const UserEntitySchema = z.object({
   status: z.enum(['ACTIVE', 'INACTIVE']).default('ACTIVE'), // 상태 관리
   createdAt: z.string().datetime(),
   updatedAt: z.string().datetime(),
+  refreshTokens : z.array(z.string())
 });
 
 export type UserEntity = z.infer<typeof UserEntitySchema>;

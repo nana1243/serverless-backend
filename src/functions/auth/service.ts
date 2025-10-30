@@ -1,23 +1,33 @@
-import {verify} from '@libs/domain/utils/auth-jwt';
-import { UserRepository } from '@libs/domain/repositories/authRepository';
+import { signAccess, signRefresh, verify } from '@libs/domain/utils/auth-jwt';
+import { KakaoLoginStartServiceProps, KakaoLoginStartServiceResult } from '@functions/auth/schema';
 
-interface GenerateTokenServiceProps{
-  refreshToken: string;
-  userRepository: UserRepository
-}
 
-const generateTokenService = async (props : GenerateTokenServiceProps) => {
+const kakaoLoginStartService = async (props : KakaoLoginStartServiceProps): Promise<KakaoLoginStartServiceResult | null> => {
   const {refreshToken, userRepository} = props;
 
   try {
     const { uid } = verify(refreshToken);
-    const user = await userRepository.getUserById(uid);
-
+    const user = await userRepository.getUserById( {
+      id:uid,
+      refreshCookie:refreshToken
+    });
+    if(user){
+      const access = signAccess(uid);
+      const refresh = signRefresh(uid);
+      user.refreshTokens = user.refreshTokens.filter(token => token !== refreshToken)
+      user.refreshTokens.push(refresh)
+      await userRepository.saveUser(user);
+      return {
+        access,
+        refresh
+      }
+    }
   } catch (error) {
     throw error;
   }
+  return null
 }
 
 export {
-  generateTokenService,
+  kakaoLoginStartService,
 }
