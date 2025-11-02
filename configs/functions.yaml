@@ -1,8 +1,14 @@
 authKakao:
-  handler: src/functions/auth/handler.main # 필요하다면 카카오 로그인 전용 핸들러(예: handler.kakao)로 변경하세요.
+  handler: src/functions/auth/kakao-start/handler.main
   events:
     - http:
         path: auth/kakao
         method: get
 
-
+authKakoCallback:
+  handler: src/functions/auth/kakao-callback/handler.main
+  events:
+    - http:
+        path: auth/kakao/callback
+        method: get
+#

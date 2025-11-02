@@ -1,1 +1,5 @@
-export { default as auth } from './auth';
+import auth from '@functions/auth';
+
+export const handler = {
+  ...auth
+};
