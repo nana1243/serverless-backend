@@ -1,6 +1,6 @@
 import { UserRepository } from '@libs/domain/repositories/authRepository';
 
-interface KakaoLoginStartServiceProps{
+interface KakaoLoginStartServiceRequest {
   refreshToken: string;
   userRepository: UserRepository
 }
@@ -13,6 +13,6 @@ interface KakaoLoginStartServiceResult {
 
 
 export {
-  KakaoLoginStartServiceProps,
+  KakaoLoginStartServiceRequest,
   KakaoLoginStartServiceResult
 }

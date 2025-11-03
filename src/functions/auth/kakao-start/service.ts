@@ -1,8 +1,8 @@
 import { signAccess, signRefresh, verify } from '@libs/domain/utils/auth-jwt';
-import { KakaoLoginStartServiceProps, KakaoLoginStartServiceResult } from '@functions/auth/kakao-start/schema';
+import { KakaoLoginStartServiceRequest, KakaoLoginStartServiceResult } from '@functions/auth/kakao-start/schema';
 
 
-const kakaoLoginStartService = async (props : KakaoLoginStartServiceProps): Promise<KakaoLoginStartServiceResult | null> => {
+const kakaoLoginStartService = async (props : KakaoLoginStartServiceRequest): Promise<KakaoLoginStartServiceResult | null> => {
   const {refreshToken, userRepository} = props;
 
   try {
