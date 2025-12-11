@@ -4,6 +4,7 @@ service: my-serverless-api
 frameworkVersion: '3'
 
 plugins:
+  - serverless-dotenv-plugin
   - serverless-esbuild
   - serverless-offline
 
@@ -29,6 +30,8 @@ package:
   individually: true
 
 custom:
+  dotenv:
+    logging: true
   esbuild:
     bundle: true
     minify: false
