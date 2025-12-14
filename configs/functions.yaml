@@ -11,4 +11,10 @@ authKakoCallback:
     - http:
         path: auth/kakao/callback
         method: get
-#
+
+chatListUserChat:
+  handler: src/functions/chat/list-user-chats/handler.main
+  events:
+    - http:
+        path: chat/list-user-chats
+        method: get
