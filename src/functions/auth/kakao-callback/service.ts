@@ -4,7 +4,6 @@ const { KAKAO_CLIENT_ID, KAKAO_CLIENT_SECRET, KAKAO_REDIRECT_URI } = process.env
 
 const kakaoCallbackService = async (request:KakaoCallbackServiceRequest): Promise<KakaoCallbackServiceResponse| null> => {
   const { code } = request;
-
   const tokenRes = await axios.post(
     "https://kauth.kakao.com/oauth/token",
     null,

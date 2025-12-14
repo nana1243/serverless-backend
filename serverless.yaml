@@ -15,13 +15,13 @@ provider:
   apiGateway:
     minimumCompressionSize: 1024
     shouldStartNameWithService: true
-  iam:
-    role:
-      statements:
-        - Effect: Allow
-          Action:
-            - s3:GetObject
-          Resource: "arn:aws:s3:::i18n-automation/nana1243/react-typescript/v1.0.1/generated_*.json"
+#  iam:
+#    role:
+#      statements:
+#        - Effect: Allow
+#          Action:
+#            - s3:GetObject
+#          Resource: "arn:aws:s3:::i18n-automation/nana1243/react-typescript/v1.0.1/generated_*.json"
 
 # functions 파일 경로 수정
 functions: ${file(./configs/functions.yaml)} # <--- src/ 제거!

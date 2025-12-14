@@ -4,10 +4,10 @@ import getToken from '@libs/domain/utils/getToken';
 import { kakaoLoginStartService } from './service';
 import { UserRepository } from '@libs/domain/repositories/authRepository';
 
-const { KAKAO_CLIENT_ID, REDIRECT_URI, FRONTEND_URL } = process.env;
+const { KAKAO_CLIENT_ID, KAKAO_REDIRECT_URI, FRONTEND_URL } = process.env;
 const userRepository = new UserRepository();
 
-const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${KAKAO_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=profile_nickname,profile_image`;
+const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_REDIRECT_URI}&scope=profile_nickname,profile_image`;
 
 const kakaoLoginStartHandler: ValidatedEventAPIGatewayProxyEvent<any> = async (event) => {
   const refreshToken = getToken(event.headers['Cookie'] || event.headers['cookie'] || '');
