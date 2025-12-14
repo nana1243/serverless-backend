@@ -1,19 +1,59 @@
+# configs/resources.yaml
+
 Resources:
-  ApiGatewayMethodS3DashobjectGetApplicationJsonModel:
-    Type: AWS::ApiGateway::Model
+  UserTable:
+    Type: 'AWS::DynamoDB::Table'
     Properties:
-      RestApiId: !Ref ApiGatewayRestApi
-      ContentType: application/json
-      Name: ApiGatewayMethodS3DashobjectGetApplicationJsonModel
-      Schema: # S3에서 읽어오는 JSON 파일의 예상 스키마를 여기에 정의
-        type: object
-        properties:
-          # 예시 스키마 (실제 JSON 파일 내용에 맞게 수정해야 함)
-          message:
-            type: string
-          version:
-            type: string
-          data:
-            type: object
-            additionalProperties: true # 어떤 속성이든 올 수 있도록
-        required: []
+      TableName: ${self:custom.userTableName}
+      AttributeDefinitions:
+        - AttributeName: id # PK: 사용자 고유 ID
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST # 온디맨드 (Serverless 환경에 적합)
+      # StreamSpecification:
+      #   StreamViewType: NEW_AND_OLD_IMAGES # 필요시 DDB Streams 활성화
+
+  ChatRoomTable:
+    Type: 'AWS::DynamoDB::Table'
+    Properties:
+      TableName: ${self:custom.chatRoomTableName}
+      AttributeDefinitions:
+        - AttributeName: id # PK: 채팅방 고유 ID
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+      # 🌟 GSI 추가 (선택): 사용자가 참여한 채팅방 목록을 효율적으로 찾기 위함
+      GlobalSecondaryIndexes:
+        - IndexName: UserIndex
+          KeySchema:
+            - AttributeName: userId # GSI Partition Key (PK)
+              KeyType: HASH
+          Projection:
+            ProjectionType: KEYS_ONLY # 비용 절감을 위해 키만 투영
+          ProvisionedThroughput:
+            ReadCapacityUnits: 1
+            WriteCapacityUnits: 1
+
+  ChatMessageTable:
+    Type: 'AWS::DynamoDB::Table'
+    Properties:
+      TableName: ${self:custom.chatMessageTableName}
+      AttributeDefinitions:
+        - AttributeName: PK # 채팅방 ID (파티션 키)
+          AttributeType: S
+        - AttributeName: SK # 타임스탬프 (정렬 키)
+          AttributeType: S
+      KeySchema:
+        - AttributeName: PK
+          KeyType: HASH
+        - AttributeName: SK
+          KeyType: RANGE
+      BillingMode: PAY_PER_REQUEST
+      # 🌟 TTL 설정 (선택): 오래된 메시지 자동 삭제 (로그성 데이터 관리에 유용)
+      TimeToLiveSpecification:
+        AttributeName: expirationTime # TTL 속성 이름 (UNIX Timestamp)
+        Enabled: true
