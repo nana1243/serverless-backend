@@ -8,3 +8,5 @@ export const ChatEntitySchema = z.object({
   lastMessageText: z.string().optional(),
   lastMessageTimestamp: z.string().datetime().optional()
 });
+
+export type ChatEntity = z.infer<typeof ChatEntitySchema>;

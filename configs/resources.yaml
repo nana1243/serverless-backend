@@ -22,6 +22,8 @@ Resources:
       AttributeDefinitions:
         - AttributeName: id # PK: 채팅방 고유 ID
           AttributeType: S
+        - AttributeName: userId
+          AttributeType: S
       KeySchema:
         - AttributeName: id
           KeyType: HASH
@@ -37,6 +39,7 @@ Resources:
           ProvisionedThroughput:
             ReadCapacityUnits: 1
             WriteCapacityUnits: 1
+
 
   ChatMessageTable:
     Type: 'AWS::DynamoDB::Table'
@@ -57,3 +60,4 @@ Resources:
       TimeToLiveSpecification:
         AttributeName: expirationTime # TTL 속성 이름 (UNIX Timestamp)
         Enabled: true
+
